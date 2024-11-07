@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FORM.COM</title>
+  </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Anta&display=swap");
+
+    * {
+      font-family: "Anta", sans-serif;
+      margin: 0;
+      padding: 8px;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+    body {
+      min-height: 100vh;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url(img.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      backdrop-filter: blur(5px);
+      background-position: center;
+    }
+    #container {
+      background-color: transparent;
+      border-radius: 40px;
+      width: 1100px;
+      padding: 20px;
+      border: 1px solid rgb(170, 169, 169);
+    }
+    #title > h2 {
+      font-size: 60px;
+    }
+    input,
+    select,
+    textarea,
+    option {
+      padding: 5px;
+      border-radius: 7px;
+      font-weight: 600;
+      background-color: transparent;
+    }
+    .btn {
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 23px;
+      margin:0px 10px;
+      font-weight: 800;
+      background-color: transparent;
+    }
+  </style>
+
+  <body>
+    <div id="container">
+      <div id="title">
+        <h2>STUDENT REGISTRATION FORM</h2>
+      </div>
+      <br />
+
+      <form action="action.php" method="post">
+        <label for="fname">First Name : </label>
+        <input
+          type="text"
+          id="fname"
+          name="fname"
+          placeholder="First Name"
+        /><br /><br />
+
+        <label for="lname">Last Name : </label>
+        <input
+          type="text"
+          id="lname"
+          name="lname"
+          placeholder="Last Name"
+        /><br /><br />
+
+        <label for="dob">Date of Birth : </label>
+        <input type="date" id="dob" name="dob" /><br /><br />
+
+        <label for="Address">Address:</label><br />
+        <textarea name="message" rows="5" cols="35"> </textarea><br /><br />
+
+        <label for="email">Enter your Email : </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="abc@gmail.com"
+        /><br /><br />
+
+        <label for="pwd">Password : </label>
+        <input type="password" id="pwd" name="pwd" /><br /><br />
+
+        <span>Your Favourite Sports : </span>
+        <input type="checkbox" id="Cricket" name="Cricket" value="Cricket" />
+        <label for="Cricket"> Cricket </label>
+        <input
+          type="checkbox"
+          id="Badminton"
+          name="Badminton"
+          value="Badminton"
+        />
+        <label for="Badminton"> Badminton </label>
+        <input
+          type="checkbox"
+          id="Volleyball"
+          name="Volleyball"
+          value="Volleyball"
+        />
+        <label for="Volleyball"> Volleyball </label>
+        <input type="checkbox" id="Other" name="Other" value="Other" />
+        <label for="Other"> Other </label><br /><br />
+
+        <label for="cars">Choose your Favourite Car : </label>
+        <select id="cars" name="cars">
+          <option value="BMW">BMW</option>
+          <option value="Mercedes">Mercedes</option>
+          <option value="Bugati">Bugati</option>
+          <option value="audi">Audi</option></select
+        ><br /><br />
+
+        <span>Gender : </span>
+        <input type="radio" id="Male" name="Gender" value="Male" />
+        <label for="Male">Male</label>
+        <input type="radio" id="Female" name="Gender" value="Female" />
+        <label for="Female">Female</label><br /><br />
+
+        <label for="myfile">Select a File (Maximum size upto 2mb) : </label>
+        <input type="file" id="myfile" name="myfile" /><br /><br />
+
+        <input type="submit" class="btn" value="Submit" />
+        <input type="reset" class="btn" value="Reset" /><br /><br />
+      </form>
+    </div>
+  </body>
+</html>

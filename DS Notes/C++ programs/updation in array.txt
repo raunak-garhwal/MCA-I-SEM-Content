@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+   int i,pos,size,x;
+   
+   int a[] = {2,4,55,4,8,7,5};
+   size = sizeof(a)/sizeof(a[0]);
+   cout << "Array before update operation :-"<<endl;
+   for (i = 0;i<size;i++){
+       cout << a[i] << " ";
+   }cout<<endl; 
+   cout << "Enter the position where you wish to update the element : ";
+   cin >> pos;
+   cout << "The new element :- ";
+   cin >> x;
+   a[pos-1]=x;
+   cout << "Array after update operation :-"<<endl;
+   for (i = 0;i<size;i++){
+       cout << a[i] << " ";
+   } 
+   return 0;
+}

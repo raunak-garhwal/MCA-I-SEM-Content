@@ -1,0 +1,530 @@
+PYTHON ASSIGNMENT 2
+
+Q.1 Enter input and count ?
+
+user_input = input('Enter a sentence : ')
+
+lowercase_count=0
+uppercase_count=0
+digit_count=0
+whitespace_count=0
+word_count=1
+
+for i in user_input:
+    if (i>='a'and i<='z'):
+        lowercase_count+=1               
+    elif (i>='A'and i<='Z'):
+        uppercase_count+=1
+    elif (i==' '):
+        whitespace_count+=1
+        word_count+=1
+    elif (i>='0'and i<='9'):
+        digit_count+=1
+         
+print('Number of Lower case letters in the string : ',lowercase_count)
+print('Number of Upper case letters in the string : ',uppercase_count)
+print('Number of Digits in the string : ',digit_count)
+print('Number of Whitespace Characters in the string : ',whitespace_count)
+print('Number of words in the string : ',word_count)
+
+
+Q.2 Create a password ?
+
+while(1):
+    def is_valid_password(password):
+        # Check the length of the password
+        if len(password) < 8:
+            print("Password must be atleast eight characters long.")
+            return False
+
+        # Check for at least one uppercase letter
+        has_upper = False
+        for char in password:
+            if 'A' <= char <= 'Z':
+                has_upper = True
+                break
+        if has_upper == False :
+            print("Your password does not have any uppercase letter.")
+
+        # Check for at least one lowercase letter
+        has_lower = False
+        for char in password:
+            if 'a' <= char <= 'z':
+                has_lower = True
+                break
+        if has_lower == False :
+            print("Your password does not have any lowercase letter.")
+
+        # Check for at least one numeric digit
+        has_digit = False
+        for char in password:
+            if '0' <= char <= '9':
+                has_digit = True
+                break
+        if has_digit == False :
+            print("Your password does not have any digit.")
+
+        # Return True if all conditions are met
+        return has_upper and has_lower and has_digit
+
+    # Get user input for the password
+    user_password = input("\nEnter your password: ")
+
+    # Check if the password is valid
+    if is_valid_password(user_password):
+        print("\nYour entered Password is valid!\n")
+        break
+    else:
+        print("So, Please enter the Password again!")
+
+
+Q.3.1 repeated items in tuple ?
+
+n=int(input("Enter the size of the tuple : "))
+list=[]
+tup=()
+replist=[]
+
+for i in range(n):
+    value=int(input(f"Enter {i+1} value : "))
+    list.append(value)
+
+tup = tuple(list)
+
+for i in tup:
+    if (tup.count(i))>1:
+        if i not in replist:
+            replist.append(i)   
+                  
+print("The repeated items are",replist)
+
+Q.3.2 Check that element exist or not ?
+
+n = int(input("Enter the size of the tuple: "))
+my_list = [] 
+my_tuple = ()
+
+# Taking input for the tuple
+for i in range(n):
+    value = int(input(f"Enter {i + 1} value: "))
+    my_list.append(value)
+
+element = int(input("Enter the element to search in the tuple: "))
+
+my_tuple = tuple(my_list)
+element_found = False
+
+# Searching for the element in the tuple
+for j in my_tuple:
+    if j == element:
+        element_found = True
+        break
+
+# Checking and printing the result
+if element_found:
+    print(f"{element} is present in the tuple.")
+else:
+    print(f"{element} is not present in the tuple.")
+
+Q.3.3 remove an item from tuple ?
+
+n=int(input("Enter the size of the tuple : "))
+temp_list=[]
+org_tup=()
+
+for i in range(n):
+    value=int(input(f"Enter {i+1} element : "))
+    temp_list.append(value)
+
+org_tup = tuple(temp_list)
+print(f"Original Tuple is {org_tup}.")
+
+# Item to be removed
+item_to_remove = int(input("Enter the element to be removed from the tuple : "))
+
+# Create a new tuple without the specified item
+new_tup = tuple(item for item in org_tup if item != item_to_remove)
+
+print(f"New Tuple is {new_tup}.")
+
+Q.3.4 convert a tuple into an dictionary ?
+
+# Using the dict constructor :
+
+tuple_data1 = (("a", 1), ("b", 2), ("c", 3))
+
+# Convert tuple to dictionary using dict()
+dictionary_data1 = dict(tuple_data1)
+
+print(dictionary_data1)
+
+# Using dictionary comprehension :
+
+tuple_data2 = (("d", 4), ("e", 5), ("f", 6))
+
+# Convert tuple to dictionary using dictionary comprehension
+dictionary_data2 = {key: value for key,value in tuple_data2}
+
+print(dictionary_data2)
+
+
+Q.4 Binary search ?
+
+def binary_search(my_list, target_value):
+
+    low = 0
+    high = len(my_list) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        mid_value = my_list[mid]
+
+        if mid_value == target_value:
+            return mid  # Element found, return its index
+        elif mid_value < target_value:
+            low = mid + 1  # Discard the left half
+        else:
+            high = mid - 1  # Discard the right half
+
+    return -1  # Element not found in the list
+
+n=int(input("Enter the number of elements in a list : "))
+
+my_list=[]
+
+for i in range(n):
+    value=int(input(f"Enter {i+1} element : "))
+    my_list.append(value)
+
+target_value = int(input("Enter the element to search in the list : "))
+
+print(f"Original list : {my_list}")
+
+# sorting the list:
+my_list.sort()
+
+print(f"Sorted list : {my_list}")
+
+result = binary_search(my_list, target_value)
+
+if result != -1:
+    print(f"Element {target_value} found at index {result}.")
+else:
+    print(f"Element {target_value} not found in the list.")
+
+
+Q.5 Linear search ?
+
+def linear_search(my_list,target_value):
+    n=len(my_list)
+    for j in range(n):
+        if my_list[j] == target_value:
+            return j
+    return -1
+
+n=int(input("Enter the number of elements in the list : "))
+
+my_list=[]
+
+for i in range(n):
+    value=int(input(f"Enter {i+1} element : "))
+    my_list.append(value)
+
+print(f"\nElements in the list are {my_list}")
+         
+target_value = int(input("\nEnter the element to search in the list : "))
+
+result = linear_search(my_list,target_value)
+
+if result == -1 :
+    print(f"\nElement {target_value} not found in the list.\n")
+else:
+    print(f"\nElement {target_value} found at index {result}.\n")
+
+
+Q.6 selection sort ?
+
+def selection_sort(list,n):
+    for i in range(n-1):
+        min_idx=i
+        for j in range(i+1,n):
+            if list[j] < list[min_idx]:
+                min_idx=j
+
+        list[i],list[min_idx] = list[min_idx],list[i]
+
+
+num=int(input("Enter the number of elements in the list : "))
+my_list=[]
+
+for i in range(num):
+    value=int(input(f"Enter {i+1} element : "))
+    my_list.append(value)
+
+
+print(f"Before Sorting : {my_list}")
+
+selection_sort(my_list,num)
+
+print(f"After Sorting : {my_list}")
+
+
+Q.7 Merge sort ?
+
+def merge_sort(my_list):
+    if len(my_list) > 1:
+        # Divide the my_list into two halves
+        mid = len(my_list) // 2
+        left_half = my_list[:mid]
+        right_half = my_list[mid:]
+
+        # Recursively sort each half
+        merge_sort(left_half)
+        merge_sort(right_half)
+
+        # Merge the sorted halves
+        merge(my_list, left_half, right_half)
+
+def merge(my_list, left, right):
+    i = j = k = 0
+
+    # Compare elements from both halves and merge them
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            my_list[k] = left[i]
+            i += 1
+        else:
+            my_list[k] = right[j]
+            j += 1
+        k += 1
+
+    # Copy the remaining elements, if any, from the left half
+    while i < len(left):
+        my_list[k] = left[i]
+        i += 1
+        k += 1
+
+    # Copy the remaining elements, if any, from the right half
+    while j < len(right):
+        my_list[k] = right[j]
+        j += 1
+        k += 1
+
+num=int(input("Enter the number of elements in the list : "))
+my_list=[]
+
+for i in range(num):
+    value=int(input(f"Enter {i+1} element : "))
+    my_list.append(value)
+
+
+print(f"Before Sorting : {my_list}")
+
+merge_sort(my_list)
+
+print(f"After Sorting : {my_list}")
+
+
+Q.8 Quick sort ?
+
+def partition(arr, start, end):
+    pivot = arr[start]
+    count = 0
+    for i in range(start + 1, end + 1):
+        if arr[i] <= pivot:
+            count += 1
+    pivot_index = start + count
+    arr[pivot_index], arr[start] = arr[start], arr[pivot_index]
+
+    i, j = start, end
+    while i < pivot_index and j > pivot_index:
+        while arr[i] <= pivot:
+            i += 1
+        while arr[j] > pivot:
+            j -= 1
+        if i < pivot_index and j > pivot_index:
+            arr[i], arr[j] = arr[j], arr[i]
+            i += 1
+            j -= 1
+    return pivot_index
+
+
+def quick_sort(arr, start, end):
+    if start >= end:
+        return
+    pivot_position = partition(arr, start, end)
+    quick_sort(arr, start, pivot_position - 1)
+    quick_sort(arr, pivot_position + 1, end)
+
+
+num = int(input("Enter the number of elements in the list: "))
+arr = []
+
+for i in range(num):
+    value = int(input(f"Enter element {i + 1} : "))
+    arr.append(value)
+
+print(f"Before Sorting : {arr}")
+quick_sort(arr, 0, num - 1)
+print(f"After Sorting : {arr}")
+
+
+Q.9 Shell sort ?
+
+def shell_sort(arr):
+    n = len(arr)
+    gap = n // 2
+
+    while gap > 0:
+        for i in range(gap, n):
+            temp = arr[i]
+            j = i
+
+            while j >= gap and arr[j - gap] > temp:
+                arr[j] = arr[j - gap]
+                j -= gap
+
+            arr[j] = temp
+
+        gap //= 2
+
+
+num = int(input("Enter the number of elements in the list: "))
+arr = []
+
+for i in range(num):
+    value = int(input(f"Enter element {i + 1} : "))
+    arr.append(value)
+
+print("Before Sorting :", arr)
+
+shell_sort(arr)
+
+print("After Sorting :", arr)
+
+
+Q.10 Matrix ?
+
+def insertInMatrix(matrix,row,col):
+    for i in range(row): 	
+        a = []
+        for j in range(col): 
+            a.append(int(input()))
+        matrix.append(a)
+
+def printMatrix(matrix,row,col):
+    for r in range(0,row):
+        for c in range(0,col):
+            print(matrix[r][c],end=" ")
+        print()
+
+def addMatrix(A,B,row,col): 
+    result = []
+    for i in range(0,row):
+        b=[]
+        for j in range(0,col):
+            b.append(A[i][j]+B[i][j])
+        result.append(b)
+    return result
+
+def subMatrix(A,B,row,col):
+    result = []
+    for i in range(0,row):
+        b=[]
+        for j in range(0,col):
+            b.append(A[i][j]-B[i][j])
+        result.append(b)    
+    return result
+
+def mulMatrix(matrix1,matrix2):
+
+    return [[sum(a * b for a, b in zip(row1, col2)) for col2 in zip(*matrix2)] for row1 in matrix1]
+
+    # rows1, cols1 = len(matrix1), len(matrix1[0])
+    # rows2, cols2 = len(matrix2), len(matrix2[0])
+
+    # result = [[0 for _ in range(cols2)] for _ in range(rows1)]
+
+    # for i in range(rows1):
+    #     for j in range(cols2):
+    #         for k in range(cols1):
+    #             result[i][j] += matrix1[i][k] * matrix2[k][j]
+
+    # return result
+
+print("\nWelcome to the Matrix Menu Driven Program :-\n")
+print("What Operation would you like to perform :-\n")
+
+while(True):
+    print("\nPress 1 for Matrix Addition.")
+    print("Press 2 for Matrix Subtraction.")
+    print("Press 3 for Matrix Multiplication.")
+    print("Press 4 to exit.")
+    choice=int(input("\nEnter Your Choice(1,2,3,4) :- "))
+
+    if choice == 1:
+
+        matrixA = []
+        matrixB = []
+        print("\nProgram for Matrix Addition :- \nNOTE :- For Matrix Addition,the order of the two Matrices must be equal.\n")
+        row = int(input("Enter the number of rows in Matrix :- "))
+        col = int(input("Enter the number of columns in Matrix :- "))
+
+        print("\nEnter the entries of first Matrix A row wise :- ")
+        insertInMatrix(matrixA,row,col)
+
+        print("\nEnter the entries of second Matrix B row wise :- ")
+        insertInMatrix(matrixB,row,col)
+
+        print("\nResultant Matrix after Addition :- ")
+        printMatrix(addMatrix(matrixA,matrixB,row,col),row,col)
+
+    elif choice == 2:
+
+        matrixA = []
+        matrixB = []
+        print("\nProgram for Matrix Subtraction :-\nNOTE :- For Matrix Subtraction, the order of the two Matrices must be equal.\n")
+        row = int(input("Enter the number of rows in Matrix :- "))
+        col = int(input("Enter the number of columns in Matrix :- "))
+
+        print("\nEnter the entries of first Matrix A row wise :- ")
+        insertInMatrix(matrixA,row,col)
+
+        print("\nEnter the entries of second Matrix B row wise :- ")
+        insertInMatrix(matrixB,row,col)
+
+        print("\nResultant Matrix after Subtraction :- ")
+        printMatrix(subMatrix(matrixA,matrixB,row,col),row,col)
+        
+    elif choice == 3:
+        
+        matrixA = []
+        matrixB = []
+        print("\nProgram for Matrix Multiplication :- \nNOTE :- For matrix multiplication, the number of columns in the first matrix must be equal to the number of rows in the second matrix.\n")
+
+        print("Enter data for first Matrix :- ")
+        r1 = int(input("Enter the number of rows in first Matrix :- "))
+        c1 = int(input("Enter the number of columns in first Matrix :- "))
+        print("\nEnter the entries of first Matrix A row wise :- ")
+        insertInMatrix(matrixA,r1,c1)
+
+        print("\nEnter data for second Matrix :- ")
+        r2 = int(input("Enter the number of rows in second Matrix :- "))
+        c2 = int(input("Enter the number of columns in second Matrix :- "))
+        if c1 != r2:
+            print("\nLogical Error :- The number of columns in the first matrix does not equal to the number of rows in the second matrix.\n")
+            break
+        print("\nEnter the entries of second Matrix B row wise :- ")
+        insertInMatrix(matrixB,r2,c2)
+    
+        print("\nResultant Matrix after Multiplication :- ")
+        printMatrix(mulMatrix(matrixA,matrixB),r1,c2)
+    
+    elif choice == 4:
+        
+        print("\nThanks for using this program.\nPlease Come back soon......\n")
+        break
+
+    else:
+        print("\nERROR :- Invalid User Input.Please choose a Valid Option.")
+

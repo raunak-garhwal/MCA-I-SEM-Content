@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+int main(){
+
+int arr[10] = {11,44,88,66,22,33,55};
+int i,x,pos,n=7;
+
+cout << "Before insertion :- "<<endl;
+for ( i = 0 ; i < n ; i++ ){
+    cout << arr[i] << " ";
+}
+cout<<endl;
+
+x=99;
+pos=4;
+n++;
+
+for ( i = n-1; i >= pos; i--){
+	arr[i] = arr[i-1];
+}
+arr[pos-1] = x;
+
+cout << "After insertion :-" <<endl;
+for ( i = 0 ; i < n ; i++ ){
+    cout << arr[i] << " ";
+}
+cout<<endl;
+return 0;
+}
+

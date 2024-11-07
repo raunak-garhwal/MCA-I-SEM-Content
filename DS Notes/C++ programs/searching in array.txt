@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+#define MAX 50
+
+int main(){
+
+int i,n,x;
+
+int a[MAX];
+
+cout << "Enter the size of the array : ";
+cin >> n;
+
+cout << "Enter "<< n << " elements :- " << endl;
+for (i=0;i<n;i++){
+    cin >> a[i];
+}
+cout << "Enter the element to search for in the array :- ";
+cin >> x;
+
+for ( i=0; i<n;i++){
+    if (a[i] == x){
+        cout<< x <<" found at index " << i;
+        return 0;
+}
+}
+cout << x << " not found in this array.";
+
+return 0;
+}

@@ -1,0 +1,53 @@
+UNIT-1
+distributed systems
+real time systems
+hardware protection
+operating system structures
+functions of operating system
+system programs vs system calls
+operating system services
+
+
+UNIT-2
+process concept
+process schedulers
+operation on processes
+inter process communication
+cooperating process
+communication in client server systems
+thread
+multithreading models
+
+
+UNIT-3
+scheduling criteria
+scheduling algorithms
+process syncronization
+critical section problem
+semaphores
+deadlock complete topic
+deadlock(avoidance/prevention)
+deadlock categorization
+
+
+UNIT-4
+contiguous memory allocation
+segmentation
+paging
+virtual memory
+page replacement
+swapping
+thrashing
+demand paging
+file system structure
+file system access methods
+directory implementation
+
+
+UNIT-5
+goals of protection
+domain of protection
+access matrix
+cryptography definition
+cryptography methods
+

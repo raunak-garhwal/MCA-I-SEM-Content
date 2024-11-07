@@ -1,0 +1,24 @@
+python data types, python operators
+ 
+Pass by object reference concept in python
+
+list , tuple , set , string , dictionary -> meaning , concepts and methods , slicing concept
+
+comprehension - list,set,dictionary,tuple
+
+control statements(if, elif and else statements),pass statement,break-continue, match-case statements , Loops - ( for & while loops )
+
+Exceptions , try-except(exception handling)
+
+function meaning and concepts, types of function arguments , modules in python
+
+regular expressions
+
+
+
+
+
+
+oops concepts,classes & object concepts, 4 pillars of oops - encapsulation,inheritance,abstraction,polymorphism, instance & class variables , function overloading and overriding
+
+constructor concept ( __init__ and self concept )

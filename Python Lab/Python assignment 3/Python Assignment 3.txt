@@ -1,0 +1,633 @@
+PYTHON ASSIGNMENT 3
+
+Q.1 
+
+def student_biodata():
+    global stud_name,stud_class,stud_section
+    stud_name=input("Enter the Name of the student : ")
+    stud_class=input("Enter the Class of the student : ")
+    stud_section=input("Enter the Section of the student : ")
+    student_mark()
+
+def student_mark():
+    global e,h,m,sc,sst,stud_percent,stud_remark
+    try:
+        e=float(input("Enter marks in English : "))
+        h=float(input("Enter marks in Hindi : "))
+        m=float(input("Enter marks in Maths : "))
+        sc=float(input("Enter marks in Science : "))
+        sst=float(input("Enter marks in Social-Science : "))
+    except:
+        print("\nWARNING :- PLEASE ENTER NUMERIC MARKS.\n")
+    else:
+        if(e>100 or h>100 or m>100 or sc>100 or sst>100):
+            print("\nERROR :- CHECK THE MARKS ENTRY!\nPLEASE ENTER THE MARKS IN VALID RANGE(BETWEEN 0 AND 100)\n")
+        elif (e>40 and h>40 and m>40 and sc>40 and sst>40):
+            student_remark()
+        else:
+            stud_percent = "NA"
+            stud_remark = "FAIL(Note :- Individual Subject Marks below 40)"
+            student_result()
+
+def student_remark():
+    global stud_percent,stud_remark
+    stud_percent=(e+h+m+sc+sst)/5
+    if(0<stud_percent<45):
+        stud_remark = "FAIL(Note :- Overall Percentage below 45%)"
+        student_result()
+    else:
+        stud_remark = "PASS"
+        student_result()
+
+def student_result():
+    print("\n--- STUDENT DETAILS ---")
+    print("Name :",stud_name)
+    print("Class :",stud_class)
+    print("Section :",stud_section)
+    print("Percentage :",stud_percent)
+    print("Remark :",stud_remark,"\n")
+
+if __name__ == "__main__":
+    print("\n--- WELCOME TO THE STUDENT RESULT DECLARATION PORTAL ---\n")
+    student_biodata()
+
+
+
+Q.2
+
+with open('Python.txt','r') as firstfile, open('Python1.txt','w') as secondfile: 
+    for line in firstfile:
+        for char in line:
+            if not char.isnumeric() : 
+                secondfile.write(char)
+
+
+
+Q.3
+
+import pickle
+
+def createFile():
+    file = open("book.dat","ab")
+    BookNo = int(input("\nEnter book number: "))
+    Book_Name = input("Enter book Name: ")
+    Author =input("Enter author: ").capitalize()
+    Price = int(input("Enter price: "))
+    record = [BookNo, Book_Name, Author, Price]
+    pickle.dump(record, file)
+    print("\nRecord added successfully.")
+    file.close()
+
+
+def countRec(Author):
+    file = open("book.dat","rb")
+    count = 0
+    try:
+        while True:
+            record = pickle.load(file)
+            if record[2]==Author:
+                count+=1    
+    except EOFError:
+        pass
+    file.close()
+    return count
+
+
+def testProgram():
+    while True:
+        print("\nPress 1 for adding a new book(record).\nPress 2 for counting the books of a Author.\nPress 3 to exit.")
+        try:
+            choice = int(input("\nEnter your choice : "))
+        except:
+            print("\nWARNING :- Please enter a valid numeric value. Thank you.")
+        else:
+            if choice == 1:
+                createFile()
+            elif choice == 2:
+                Author = input("\nEnter Author name to search : ").capitalize()
+                n = countRec(Author)
+                print(f"\n{n} books of Author:{Author} are present in the records.")
+            elif choice == 3:
+                print("\nTHANKS FOR USING THIS PROGRAM.PLEASE COME BACK LATER.\n")
+                break
+            else:
+                print("\nInvalid input : Please enter a valid choice.")
+
+
+if __name__ == "__main__":
+    testProgram() 
+    
+
+
+Q.4
+
+class Shapes:
+    def calculate_perimeter(self):
+        pass
+    def calculate_area(self):
+        pass
+
+class Rectangle(Shapes):
+    def __init__(self,length,width):
+        self.length=length
+        self.width=width
+    def calculate_perimeter(self):
+        return 2 * (self.length + self.width)
+    def calculate_area(self):
+        return self.length * self.width
+    
+class Circle(Shapes):
+    def __init__(self,radius):
+        self.radius=radius
+    def calculate_perimeter(self):
+        return 2 * 3.141592653589793 * self.radius
+    def calculate_area(self):
+        return 3.141592653589793 * self.radius**2
+
+class Square(Shapes):
+    def __init__(self,side):
+        self.side=side
+    def calculate_perimeter(self):
+        return 4 * self.side
+    def calculate_area(self):
+        return self.side**2 
+
+class Triangle(Shapes):
+    def __init__(self,side1,side2,side3):
+        self.side1=side1
+        self.side2=side2
+        self.side3=side3
+    def calculate_perimeter(self):
+        return self.side1 + self.side2 + self.side3
+    def calculate_area(self):
+        s = (self.side1 + self.side2 + self.side3)/2
+        return (s*(s - self.side1)*(s - self.side2)*(s - self.side3))**0.5
+    
+print("\n--- WELCOME TO THE PYTHON SHAPES PROGRAM ---")
+
+while(True):
+
+    print("\nPress 1 to calculate area and perimeter of Rectangle.\nPress 2 to calculate area and perimeter of Circle.\nPress 3 to calculate area and perimeter of Square.\nPress 4 to calculate area and perimeter of Triangle.\nPress 5 to exit.")
+
+    try:
+        choice = int(input("\nEnter your choice : "))
+    except:
+        print("\nWARNING :- Please enter a valid numeric value. Thank you.")
+    else:    
+        if choice == 1:
+            a=float(input("\nEnter Length of the Rectangle : "))
+            b=float(input("\nEnter Breadth of the Rectangle : "))
+            r=Rectangle(a,b)
+            print("\nPerimeter of Rectangle :- ",r.calculate_perimeter(),"units")
+            print("Area of Rectangle :- ",r.calculate_area(),"square units")
+
+        elif choice == 2:
+            a=float(input("\nEnter Radius of the Circle : "))
+            c=Circle(a)
+            print("\nPerimeter of Circle :- ",c.calculate_perimeter(),"units")
+            print("Area of Circle :- ",c.calculate_area(),"square units")
+        
+        elif choice == 3:
+            a=float(input("\nEnter Side of the Square : "))
+            s=Square(a)
+            print("\nPerimeter of Square :- ",s.calculate_perimeter(),"units")
+            print("Area of Square :- ",s.calculate_area(),"square units")
+
+        elif choice == 4:
+            a=float(input("\nEnter First Side of the Triangle : "))
+            b=float(input("\nEnter Second Side of the Triangle : "))
+            c=float(input("\nEnter Third Side of the Triangle : "))
+            t=Triangle(a,b,c)
+            print("\nPerimeter of Triangle :- ",t.calculate_perimeter(),"units")
+            print("Area of Triangle :- ",t.calculate_area(),"square units")
+
+        elif choice == 5:
+            print("\nTHANKS FOR USING THIS PROGRAM.PLEASE COME BACK LATER.\n")
+            break
+
+        else:
+            print("\nInvalid input : Please enter a valid choice.")
+
+
+
+Q.5
+
+class Bank:
+    def __init__(self):
+        self.account={}
+
+    def create_account(self,account_number,initial_balance=0):
+        if account_number not in self.account:
+            self.account[account_number] = initial_balance
+            print(f"Account created successfully.\nYour Account Number : {account_number}\nCurrent Balance : {initial_balance}")
+        else:
+            print(f"Account with {account_number} already exists.")
+        print()
+
+    def deposit(self,account_number,amount):
+        if account_number in self.account:
+            self.account[account_number]+=amount
+            print(f"Deposited {amount} in account {account_number}\nCurrent Balance : {self.account[account_number]}")
+        else:
+            print(f"Account with {account_number} does not exists.")
+        print()
+
+    def withdraw(self,account_number,amount):
+        if account_number in self.account:
+            if self.account[account_number]>=amount:
+                self.account[account_number]-=amount
+                print(f"Withdraw {amount} from account {account_number}\nCurrent Balance : {self.account[account_number]}")
+            else:
+                print("ERROR :- Insufficient Balance")
+        else:
+            print(f"Account with {account_number} does not exists.")
+        print()
+
+    def check_balance(self,account_number):
+        if account_number in self.account:
+            print(f"Current Balance : {self.account[account_number]}")
+        else:
+            print(f"Account with {account_number} does not exists.")
+        print()
+
+                       
+if __name__=="__main__":
+    bank=Bank()
+    print("\n\''' WELCOME TO THE BANKING TRANSACTIONS PORTAL \'''")
+    while True:
+        try:
+            print("\nPress 1 to Create Account.\nPress 2 to Deposit amount.\nPress 3 to Withdraw amount.\nPress 4 to Check Balance.\nPress 5 to Exit.")
+            choice=int(input("\nEnter your choice (1-5) : "))
+        except:
+            print("\nERROR :- Plesae enter a valid numeric value.")
+        else:
+            if choice==1:
+                account_number = input("\nEnter Account Number : ")
+                while True:
+                    try:
+                        initial_balance = float(input("Enter initial balance : "))
+                        bank.create_account(account_number,initial_balance)
+                        break
+                    except:
+                        print("\nERROR :- Please enter a valid amount.")
+
+            elif choice==2:
+                account_number = input("\nEnter Account Number : ")
+                while True:
+                    try:    
+                        amount = float(input("Enter deposit amount : "))
+                        bank.deposit(account_number,amount)
+                        break
+                    except:
+                        print("\nERROR :- Please enter a valid amount.")
+
+            elif choice==3:
+                account_number = input("\nEnter Account Number : ")
+                while True:    
+                    try:        
+                        amount = float(input("Enter withdraw amount : "))
+                        bank.withdraw(account_number,amount)
+                        break
+                    except:
+                        print("\nERROR :- Please enter a valid amount.")
+
+            elif choice==4:
+                account_number = input("\nEnter Account Number : ")
+                bank.check_balance(account_number)
+
+            elif choice==5:
+                print("\nExiting the program....")
+                break
+            
+            else:
+                print("\nInvalid choice. please enter a number between 1 to 5.\n")
+
+
+
+Q.6
+
+class Operation:
+    def __init__(self,f_num,s_num):
+        self.f_num=f_num
+        self.s_num=s_num
+
+    def add(self):
+        print("\nResult after Addition(+) :",self.f_num+self.s_num)
+
+    def sub(self):
+        print("\nResult after Subtraction(-) :",self.f_num-self.s_num)
+
+    def mul(self):
+        print("\nResult after Multiplication(*) :",self.f_num*self.s_num)
+
+    def div(self):
+        print("\nResult after Division(/) :",self.f_num/self.s_num)
+
+    def mod(self):
+        print("\nResult after Modulus(%) :",self.f_num%self.s_num)
+
+
+print("\nWHAT OPERATION WOULD YOU LIKE TO PERFORM")
+
+while(True):
+
+    print("\nPress 1 to input the Numbers.\nPress 2 for addition(+).\nPress 3 for subtraction(-).\nPress 4 for multiplication(*).\nPress 5 for division(/).\nPress 6 for Modulus(%).\nPress 7 to exit.")
+
+    try:
+        choice = int(input("\nEnter your choice : "))
+    except:
+        print("\nWARNING :- Please enter a valid numeric value. Thank you.")
+    else:    
+        if choice == 1:
+            a=float(input("\nEnter first number : "))
+            b=float(input("\nEnter second number : "))
+            obj=Operation(a,b)
+
+        elif choice == 2:
+            try:
+                obj.add()
+            except:
+                print("\nWARNING :- Please enter the numbers first. Thank you.")
+        
+        elif choice == 3:
+            try:
+                obj.sub()
+            except:
+                print("\nWARNING :- Please enter the numbers first. Thank you.")
+
+        elif choice == 4:
+            try:
+                obj.mul()
+            except:
+                print("\nWARNING :- Please enter the numbers first. Thank you.")
+        
+        elif choice == 5:
+            try:
+                obj.div()
+            except:
+                print("\nWARNING :- Please enter the numbers first. Thank you.")
+        
+        elif choice == 6:
+            try:
+                obj.mod()
+            except:
+                print("\nWARNING :- Please enter the numbers first. Thank you.")
+
+        elif choice == 7:
+            print("\nTHANKS FOR USING THIS PROGRAM.PLEASE COME BACK LATER.\n")
+            break
+
+        else:
+            print("\nInvalid input : Please enter a valid choice.")
+
+
+
+Q.7
+
+class Student:
+    def __init__(self,name,marks):
+        self.name=name
+        self.marks=marks
+
+student_list=[]
+
+def add_student():
+    name = input("\nEnter Student's Name : ")
+    mark = float(input("Enter Student's marks : "))
+    student = Student(name,mark)
+    student_list.append(student)
+
+def display_student():
+    if not student_list:
+        print("\nNo Student present in the list.")
+    else:
+        print("\nList of students :- ")
+        for student in student_list:
+            print(f"{student.name} : {student.marks}")
+
+if __name__ =="__main__":
+    while True:
+        try:
+            print("\nPlease Enter your choice : ")
+            print("1. Add New Student\n2. Display student info\n3. Exit")
+            choice = int(input("\nEnter your choice (1-3) : "))
+        except:
+            print("\nERROR :- Please enter a valid numeric value.")
+        else:
+            if choice == 1:
+                add_student()
+            elif choice == 2:
+                display_student()
+            elif choice == 3:
+                print("\nExisting the program.....\n")
+                break
+            else:
+                print("\nInvalid choice. Please enter a valid choice.")
+
+
+
+Q.8
+
+class Time:
+    def __init__(self,hour,minute=0):
+        self.hour=hour
+        self.minute=minute
+
+    def add_time(self,other):
+        if(self.minute+other.minute)>=60:
+            print(f"\nTotal time after adding two time :- {(self.hour+other.hour+1)} hr : {(self.minute+other.minute)%60} min")
+        else:
+            print(f"\nTotal time after adding two time :- {(self.hour+other.hour)} hr : {(self.minute+other.minute)} min")
+
+    def display_time(self):
+        print(f"\nTime :- {self.hour} hr : {self.minute} min")
+
+    def display_minute(self):
+        print(f"\nTotal minutes :- {(self.hour*60)+self.minute} minutes")
+
+
+if __name__ == "__main__":
+    print("\n--- Welcome to the Python Time Program ---")
+
+    while(True):
+        print("\nPress 1 to add two times.\nPress 2 to display time.\nPress 3 to convert time in minutes.\nPress 4 to exit.")
+
+        try:
+            choice = int(input("\nEnter your choice : "))
+        except:
+            print("\nWARNING :- Please enter a valid numeric value. Thank you.")
+        else:    
+            if choice == 1:
+                print("\n- ADDING TWO TIME -")
+                h1 = int(input("\nEnter the hour part of the First Time : "))
+                m1 = int(input("Enter the minute part of the First Time : "))
+                h2 = int(input("\nEnter the hour part of the Second Time : "))
+                m2 = int(input("Enter the minute part of the Second Time : "))
+                c1=Time(h1,m1)
+                c2=Time(h2,m2)
+                c1.add_time(c2)
+
+            elif choice == 2:
+                print("\n- DISPLAY TIME -")
+                h = int(input("\nEnter the hour part of the Time : "))
+                m = int(input("Enter the minute part of the Time : "))
+                c=Time(h,m)
+                c.display_time()
+
+            elif choice == 3:
+                print("\n- CONVERTING TIME IN MINUTES -")
+                h = int(input("\nEnter the hour part of the Time : "))
+                m = int(input("Enter the minute part of the Time : "))
+                c=Time(h,m)
+                c.display_minute()
+
+            elif choice == 4:
+                print("\nTHANKS FOR USING THIS PROGRAM.PLEASE COME BACK LATER.\n")
+                break
+
+            else:
+                print("\nInvalid input : Please enter a valid choice.")
+
+
+
+Q.9
+
+class MenuItem:
+    def __init__(self, name, description, price):
+        self.name = name
+        self.description = description
+        self.price = price
+
+    def __str__(self) :
+        return f"{self.name} : {self.description} -> Rs.{self.price}"
+
+
+class Menu:
+    def __init__(self):
+        self.menu_items = {}
+
+    def add_item(self, item, section="Miscellaneous"):
+        if section not in self.menu_items:
+            self.menu_items[section] = []
+        self.menu_items[section].append(item)
+
+    def remove_item(self, item_name):
+        for section in self.menu_items:
+            for item in self.menu_items[section]:
+                if item.name == item_name:
+                    self.menu_items[section].remove(item)
+                    return True
+        return False
+
+    def update_price(self, item_name, new_price):
+        for section in self.menu_items:
+            for item in self.menu_items[section]:
+                if item.name == item_name:
+                    item.price = new_price
+                    return True
+        return False
+
+    def display_menu(self):
+        print("\nMenu :")
+        for section, items in self.menu_items.items():
+            print(f"\n{section} :")
+            for item in items:
+                print(item)
+
+
+def main():
+    menu = Menu()
+    while True:
+        print("\n1. Add Item")
+        print("2. Remove Item")
+        print("3. Update Price")
+        print("4. Display Menu")
+        print("5. Exit")
+        choice = input("\nEnter your choice : ")
+        if choice == '1':
+            name = input("\nEnter item name : ")
+            description = input("Enter item description : ")
+            price = float(input("Enter item price : "))
+            section = input("Enter item section (Press Enter for Miscellaneous) : ").strip() or "Miscellaneous"
+            menu.add_item(MenuItem(name, description, price), section)
+        elif choice == '2':
+            item_name = input("\nEnter the name of the item to remove : ")
+            if menu.remove_item(item_name) :
+                print(f"{item_name} removed successfully.")
+            else :
+                print(f"Error : {item_name} not found in the menu.")
+        elif choice == '3':
+            item_name = input("\nEnter the name of the item to update price : ")
+            new_price = float(input("Enter the new price : "))
+            if menu.update_price(item_name, new_price) :
+                print(f"Price of {item_name} updated successfully.")
+            else :
+                print(f"Error : {item_name} not found in the menu.")
+        elif choice == '4':
+            menu.display_menu()
+        elif choice == '5':
+            print("\nExiting program....\n")
+            break
+        else:
+            print("\nInvalid choice. Please try again.")
+
+
+if __name__ == "__main__" :
+    print("\n---RESTAURANT PROGRAM---")
+    main()
+
+
+
+Q.10
+
+class Student:
+    def __init__(self,name,age,roll_no):
+        self.name = name
+        self.age = age
+        self.roll_no = roll_no
+
+    def display_student_info(self):
+        print("\n---Student Info---")
+        print("\nName :-", self.name)
+        print("Age :-", self.age)
+        print("Roll no. :-", self.roll_no)
+
+class MCA(Student):
+    def __init__(self,name,age,roll_no,course,sem,duration):
+        super().__init__(name,age,roll_no)
+        self.course = course
+        self.sem = sem
+        self.duration = duration
+
+    def display_mca_info(self):
+        super().display_student_info()
+        print("Course :-", self.course)
+        print("Semester :-", self.sem)
+        print("Duration :-", self.duration)
+
+class Result(MCA):
+    def __init__(self,name,age,roll_no,course,sem,duration,marks,per):
+        super().__init__(name,age,roll_no,course,sem,duration)
+        self.marks = marks
+        self.per = per
+        
+    def display_result(self):
+        super().display_mca_info()
+        print("Marks :-", self.marks)
+        print("Percentage :-", self.per)
+        
+if __name__ == "__main__":
+    n = input("\nEnter Student's Name : ")
+    a = int(input("Enter Student's Age : "))
+    r = int(input("Enter Student's Roll no. : "))
+    c = input("Enter Student's Course Name : ")
+    s = input("Enter Student's semester : ")
+    d = int(input("Enter Course Duration : "))
+    m = int(input("Enter Student's marks : "))
+    p = m/5
+    s1=Result(n,a,r,c,s,d,m,p)
+
+    s1.display_result()
+    print("\n")
+    
+    

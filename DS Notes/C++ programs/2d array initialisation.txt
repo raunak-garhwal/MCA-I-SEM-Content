@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+     int scores[4][3] = {
+     {95, 87, 91}, // Scores for Student 1
+     {88, 76, 93}, // Scores for Student 2
+     {78, 85, 89}, // Scores for Student 3
+     {92, 88, 94} // Scores for Student 4
+     };
+    cout << "Student scores :-\n";
+    for (int i = 0;i<4;i++){
+        cout << "Student "<<i+1<< " : " ;
+        for (int j = 0; j<3;j++){
+            cout << scores[i][j] << " ";
+        }cout << endl;
+    }
+return 0;
+}

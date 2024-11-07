@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume</title>
+  </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Anta&display=swap");
+
+    * {
+      background-color: #b3e2ffbd;
+      padding: 3px;
+      margin: 2px;
+      color: rgb(1, 5, 68);
+      box-sizing: border-box;
+      flex-wrap: wrap;
+      font-family: "Anta", sans-serif;
+      font-weight: 500;
+      font-style: normal;
+    }
+    #title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #title > h1 {
+      font-size: 80px;
+      font-weight: 900;
+    }
+    h2 {
+      font-size: 35px;
+      font-weight: 700;
+    }
+    #name > p {
+      font-size: 40px;
+      font-weight: 900;
+    }
+    #info-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0px;
+    }
+    #info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    #extrainfo {
+      font-size: 20px;
+      margin: 10px;
+    }
+    #image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #ronak_img {
+      width: 175px;
+      height: 210px;
+      border: 2px solid black;
+    }
+    #qualif-table,
+    th,
+    tr,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 10px;
+      margin: 10px;
+      text-align: center;
+      font-size: 20px;
+    }
+    #skills > ul {
+      font-size: 20px;
+      margin: 10px;
+    }
+    #strength > ul {
+      font-size: 20px;
+      margin: 10px;
+    }
+    #details > ul {
+      font-size: 20px;
+      margin: 10px;
+    }
+    #declaration > p {
+      font-size: 20px;
+      margin: 10px;
+    }
+    #signature > p {
+      font-size: 20px;
+      text-align: right;
+      margin: 20px;
+    }
+  </style>
+  <body>
+    <div id="title">
+      <h1>Curriculum-Vitae</h1>
+    </div>
+
+    <hr />
+
+    <div id="info-container">
+      <div id="info">
+        <div id="name">
+          <p>Your Name</p>
+        </div>
+        <div id="extrainfo">
+          <p>Address : House no.70,Hiran Magri,Udaipur,(Raj.)</p>
+          <p>E-mail : youremail@gmail.com</p>
+          <p>Mobile No. : 9876543210</p>
+        </div>
+      </div>
+
+      <div id="image">
+        <img id="your_img_id" src="your_image_path" alt="PassportPhoto" />
+      </div>
+    </div>
+
+    <hr />
+
+    <div id="qualif-container">
+      <h2>Academic Qualification :-</h2>
+      <table id="qualif-table">
+        <thead>
+          <tr>
+            <th>Course</th>
+            <th>Year</th>
+            <th>Percentage</th>
+            <th>University</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>10th</td>
+            <td>2018</td>
+            <td>88%</td>
+            <td>School name</td>
+          </tr>
+          <tr>
+            <td>12th</td>
+            <td>2020</td>
+            <td>82%</td>
+            <td>School name</td>
+          </tr>
+          <tr>
+            <td>BCA</td>
+            <td>2023</td>
+            <td>71%</td>
+            <td>MLSU</td>
+          </tr>
+          <tr>
+            <td>MCA</td>
+            <td>Running</td>
+            <td>NA</td>
+            <td>MLSU</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr />
+
+    <div id="skills">
+      <h2>Skills :-</h2>
+      <ul>
+        <li>Basic Internet Surfing</li>
+        <li>HTML,CSS,Javascript</li>
+        <li>Data Structures</li>
+        <li>Python</li>
+        <li>C/C++</li>
+        <li>SQL</li>
+      </ul>
+    </div>
+
+    <hr />
+
+    <div id="strength">
+      <h2>My Strengths :-</h2>
+      <ul>
+        <li>Adaptable to any environment and Innovative thinking</li>
+        <li>Good communication and Presentation skills</li>
+        <li>Ability to work on multiple projets with multiple priorites.</li>
+      </ul>
+    </div>
+
+    <hr />
+
+    <div id="details">
+      <h2>Personal Details :-</h2>
+      <ul>
+        <li>Father Name : Your father's name</li>
+        <li>Date of Birth : 11-11-2000</li>
+        <li>Nationality : Indian</li>
+        <li>Martial Status : Unmarried</li>
+        <li>Language Known : Hindi & English</li>
+      </ul>
+    </div>
+
+    <hr />
+
+    <div id="declaration">
+      <h2>Declaration :-</h2>
+      <p>
+        I hereby declared that the above mentioned particulars are true to the
+        best of my knowledge and belief.
+      </p>
+      <p>Date :</p>
+      <p>Place :</p>
+    </div>
+
+    <hr />
+
+    <div id="signature">
+      <p>Your Name</p>
+    </div>
+  </body>
+</html>
