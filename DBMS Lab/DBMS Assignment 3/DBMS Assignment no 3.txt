@@ -1,0 +1,605 @@
+DBMS ASSIGNMENT - 3
+Name -> Raunak Garhwal
+Roll no. -> 30
+MCA 1st sem
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question - 1 :-
+
+
+CREATE DATABASE question_1;
+
+USE question_1;
+
+CREATE TABLE Department(
+    d_no INT(20) PRIMARY KEY,
+    d_name VARCHAR(50)
+);
+    
+CREATE TABLE Branch(
+    b_code INT(20) PRIMARY KEY,
+    b_name VARCHAR(50),
+    d_no INT(20),
+    FOREIGN KEY (d_no) REFERENCES department(d_no) ON DELETE CASCADE ON UPDATE CASCADE
+);
+    
+CREATE TABLE Course(
+    c_code INT(20) PRIMARY KEY,
+    c_name VARCHAR(40),
+    Credits INT NOT NULL,
+    d_no INT(20),
+    FOREIGN KEY (d_no) REFERENCES department(d_no) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Branch_Course(
+    b_code INT(20),
+    c_code INT(20),
+    semester VARCHAR(20) NOT NULL,
+    PRIMARY KEY(b_code,c_code,semester),
+    FOREIGN KEY (b_code) REFERENCES branch(b_code) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (c_code) REFERENCES course(c_code) ON DELETE CASCADE ON UPDATE CASCADE
+);
+    
+CREATE TABLE Student(
+    roll_no INT(20) PRIMARY KEY,
+    name VARCHAR(30) NOT NULL,
+    dob DATE CHECK (TIMESTAMPDIFF(YEAR,dob,doa) BETWEEN 18 AND 40),
+    gender VARCHAR(1) CHECK (gender IN ('M','F','O')),
+    doa DATE CHECK ((doa BETWEEN '2013-02-01' AND '2013-03-31') OR (doa BETWEEN '2013-09-01' AND '2013-10-31')),
+    b_code INT(20),
+    FOREIGN KEY (b_code) REFERENCES branch(b_code) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Enrolls(
+    roll_no INT(20),
+    c_code INT(20),
+    sess VARCHAR(20) CHECK (sess IN ('April 2013','Nov 2013')),
+    grade VARCHAR(1) CHECK (grade IN ('S','A','B','C','D','E','U')),
+    PRIMARY KEY(roll_no,c_code,sess),
+    FOREIGN KEY (c_code) REFERENCES course(c_code) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (roll_no) REFERENCES student(roll_no) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+INSERT INTO Department (d_no, d_name) VALUES
+(1, 'Computer Science'),
+(2, 'Electrical Engineering'),
+(3, 'Mechanical Engineering');
+
+
+INSERT INTO Branch (B_code, B_name, d_no) VALUES
+(101, 'CS Branch A', 1),
+(102, 'CS Branch B', 1),
+(103, 'EE Branch X', 2),
+(104, 'ME Branch Y', 3),
+(105, 'CE Branch Z', 1),
+(106, 'CHE Branch W', 2),
+(107, 'BME Branch P', 3),
+(108, 'AE Branch Q', 1),
+(109, 'MS Branch R', 2),
+(110, 'EnvE Branch S', 3);
+
+
+INSERT INTO Course (C_code, C_name, Credits, d_no) VALUES
+(501, 'Introduction to Programming', 3, 1),
+(502, 'Database Management', 3, 1),
+(503, 'Data Structures', 4, 1),
+(504, 'Power Systems', 4, 1),
+(505, 'Control Systems', 3, 1),
+(506, 'Thermodynamics', 4, 3),
+(507, 'Fluid Mechanics', 4, 2),
+(508, 'Chemical Reaction Engineering', 3, 3),
+(509, 'Biomechanics', 4, 1),
+(510, 'Aerodynamics', 4, 2);
+
+
+INSERT INTO Branch_Course (B_code, C_code, Semester) VALUES
+(101, 501, 'APRIL 2013'),
+(102, 501, 'NOV 2013'),
+(103, 503, 'APRIL 2013'),
+(104, 504, 'NOV 2013'),
+(105, 505, 'APRIL 2013'),
+(106, 501, 'NOV 2013'),
+(107, 507, 'APRIL 2013'),
+(108, 508, 'NOV 2013'),
+(109, 501, 'APRIL 2013'),
+(110, 510, 'NOV 2013');
+
+
+INSERT INTO Student (Roll_no, Name, Dob, Gender, doa, B_code) VALUES
+(1001, 'John Doe', '1991-03-10', 'M', '2013-02-01', 101),
+(1002, 'Jane Smith', '1993-07-25', 'F', '2013-09-02', 102),
+(1003, 'Bob Johnson', '1993-12-05', 'M', '2013-02-03', 103),
+(1004, 'Alice Brown', '1986-02-15', 'F', '2013-10-04', 104),
+(1005, 'Charlie Wilson', '1989-09-20', 'M', '2013-09-05', 105),
+(1006, 'Eva Davis', '1994-05-18', 'F', '2013-02-06', 106),
+(1007, 'Frank Miller', '1982-11-30', 'M', '2013-09-07', 107),
+(1008, 'Grace Taylor', '1990-08-12', 'F', '2013-03-08', 108),
+(1009, 'Henry Lee', '1991-04-22', 'M', '2013-10-09', 109),
+(1010, 'Ivy Chen', '1990-01-14', 'F', '2013-03-10', 110);
+
+
+INSERT INTO Enrolls (Roll_no, C_code, Sess, Grade) VALUES
+(1001, 501, 'APRIL 2013', 'S'),
+(1001, 502, 'NOV 2013', 'S'),
+(1001, 503, 'NOV 2013', 'S'),
+(1002, 502, 'APRIL 2013', 'A'),
+(1003, 505, 'NOV 2013', 'S'),
+(1004, 510, 'APRIL 2013', 'B'),
+(1005, 503, 'NOV 2013', 'A'),
+(1006, 504, 'APRIL 2013', 'B'),
+(1007, 507, 'NOV 2013', 'A'),
+(1008, 508, 'APRIL 2013', 'B'),
+(1009, 509, 'NOV 2013', 'S');
+
+
+
+Q.A Develop a SQL query to list details of Departments that offer more than 3 branches ?
+
+SELECT department.d_no,department.d_name FROM department RIGHT JOIN branch ON department.d_no = branch.d_no GROUP BY department.d_no HAVING COUNT(b_code) > 3;
+
+
+
+
+Q.B Develop a SQL query to list the details of Departments that offer more than 5 courses ?
+
+
+SELECT department.d_no,department.d_name FROM department RIGHT JOIN course ON department.d_no = course.d_no GROUP BY department.d_no HAVING COUNT(c_code) > 5; 
+
+
+
+Q.C Develop a SQL query to list the details of courses that are common for more than 3 branches ?
+
+select c_code,c_name from course where c_code in (select c_code from branch_course group by c_code having count(b_code) > 3);
+
+
+
+
+Q.D Develop a SQL query to list students who got ‘S’ in more than 2 courses during single enrollment ?
+
+SELECT s.roll_no,s.name,s.dob,s.gender FROM student s JOIN enrolls e ON s.roll_no = e.roll_no WHERE grade = 'S' GROUP BY s.roll_no HAVING COUNT(c_code) > 2;
+
+
+
+Q.E Create a view that will keep track of the roll number, name and number of courses, a student has completed successfully ?
+
+CREATE VIEW passed_students AS SELECT student.Roll_no,Name,COUNT(c_code) AS Number_of_Courses FROM student JOIN enrolls ON student.roll_no = enrolls.roll_no WHERE grade IN ('A','B','C','D','E') GROUP BY student.roll_no;
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Question - 2 :-
+
+
+create database question_2;
+
+use question_2;
+
+create table customer(
+	customer_no varchar(25) primary key check (customer_no like 'C%'),
+	customer_name varchar(40)
+);
+
+create table cust_order(
+	order_no varchar(25) primary key check (order_no like 'O%'),
+	order_date date,
+	customer_no varchar(25),
+	order_amt DECIMAL(10,2) default 0,
+	foreign key (customer_no) references customer(customer_no)
+);
+
+create table item(
+	item_no varchar(25) primary key check (item_no like 'I%'),
+	item_name varchar(30),
+	unit_price DECIMAL(10,2)
+);
+
+create table order_item(
+	order_no varchar(25),
+	item_no varchar(25),
+	qty INT(100),
+	primary key(order_no,item_no),
+	foreign key (order_no) references cust_order(order_no),
+	foreign key (item_no) references item(item_no)
+);
+
+
+INSERT INTO `customer`(`customer_no`, `customer_name`) VALUES 
+('C1', 'Rohan'),
+('C2', 'Mukesh'),
+('C3', 'John'),
+('C4', 'Mohan'),
+('C5', 'Rahul'),
+('C6', 'Raunak'),
+('C7', 'Nikesh');
+
+
+INSERT INTO `cust_order`(`order_no`, `order_date`, `customer_no`, `order_amt`) VALUES
+('O1', '2022-01-01', 'C1', 1000),
+('O2', '2022-02-15', 'C2', 15000),
+('O3', '2022-03-20', 'C3', 1200),
+('O4', '2022-04-05', 'C4', 800),
+('O5', '2022-05-10', 'C5', 2000),
+('O6', '2022-06-15', 'C6', 1300),
+('O7', '2022-07-20', 'C7', 900),
+('O8', '2022-08-25', 'C1', 1800),
+('O9', '2022-09-30', 'C1', 700),
+('O10', '2022-10-05', 'C1', 1600);
+
+
+INSERT INTO `item`(`item_no`, `item_name`, `unit_price`) VALUES 
+('I1', 'Product A', 50),
+('I2', 'Product B', 70),
+('I3', 'Product C', 30),
+('I4', 'Product D', 60),
+('I5', 'Product E', 90),
+('I6', 'Product F', 40),
+('I7', 'Product G', 85),
+('I8', 'Product H', 55),
+('I9', 'Product I', 70),
+('I10', 'Product J', 120);
+
+
+INSERT INTO `order_item`(`order_no`, `item_no`, `qty`) VALUES 
+('O10', 'I1', 2),
+('O1', 'I2', 3),
+('O2', 'I1', 1),
+('O3', 'I3', 5),
+('O4', 'I4', 2),
+('O5', 'I5', 4),
+('O6', 'I6', 3),
+('O7', 'I7', 2),
+('O8', 'I8', 1),
+('O9', 'I9', 4);
+
+
+
+
+Q.A Develop SQL query to list the details of customers who have placed more than 3 orders ?
+
+select * from customer where customer_no in (select c.customer_no from customer c right join cust_order co on c.customer_no = co.customer_no group by customer_no having count(co.order_no) > 3);
+
+
+
+Q.B Develop a SQL query to list details of items whose price is less than the average price of all items in each order ?
+
+select * from item where unit_price < (select avg(unit_price) from item);
+
+
+Q.C Develop a SQL query to list the orderno and number of items in each order ?
+
+SELECT co.order_no, COUNT(*) AS number_of_items FROM cust_order co JOIN order_item oi ON co.order_no = oi.order_no GROUP BY co.order_no;
+
+
+Q.D Develop a SQL query to list the details of items that are present in 25% of the orders ?
+
+...............???????????
+
+ 
+Q.E Develop an update statement to update the value of Ord_amt ?
+
+update cust_order set order_amt = unit_price * qty where ......???
+
+update cust_order set order_amt = unit_price * qty where (qty,unit_price) in (select qty,unit_price from order_item join item using (item_no))
+
+
+Q.F Create a view that keeps track of detail of each customer and number of Order placed ?
+
+create view customer_order_view as select c.customer_no,c.customer_name,count(co.order_no) as 'Number of orders placed' from customer c join cust_order co on c.customer_no = co.customer_no group by c.customer_no;
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Question - 3 :-
+
+
+create database question_3;
+
+
+use question_3;
+
+
+create table department(
+	dept_no varchar(20) PRIMARY KEY,
+	dept_name varchar(30)
+);
+
+
+create table staff(
+	staff_no int(20) PRIMARY KEY,
+	staff_name varchar(30),
+	dob date,
+	gender VARCHAR(1) CHECK (gender in ('M','F','O')),
+	doj date,
+	designation varchar(30),
+	basic_pay Decimal(10,2),
+	dept_no varchar(20),
+    	FOREIGN KEY (dept_no) REFERENCES department(dept_no)
+);
+
+
+create table skill(
+	skill_code varchar(20) PRIMARY KEY,
+	description varchar(30),
+	charge_outrate DECIMAL(10,2)
+);
+
+
+create table staff_skill(
+	staff_no INT(10),
+	skill_code varchar(30),
+	PRIMARY KEY (staff_no,skill_code),
+     	FOREIGN KEY (staff_no) REFERENCES staff(staff_no),
+        FOREIGN KEY (skill_code) REFERENCES skill(skill_code)
+);
+
+
+create table project(
+	project_no varchar(20) PRIMARY KEY CHECK (project_no LIKE 'P%'),
+	project_name varchar(30),
+	start_date date,
+	end_date date,
+	project_manager_staffno INT(10)
+);
+
+
+create table works(
+	staff_no INT(10),
+	project_no varchar(20),
+	date_worked_on date,
+	in_time timestamp not null default current_timestamp,
+	out_time timestamp not null default current_timestamp,
+	PRIMARY KEY (staff_no,project_no),
+    	FOREIGN KEY (project_no) REFERENCES project(project_no)
+);
+
+
+INSERT INTO department(dept_no,dept_name)
+VALUES ('D1', 'HR'),
+('D2', 'IT'),
+('D3', 'UI/UX'),
+('D4', 'Finance');
+
+
+INSERT INTO Staff (staff_no, staff_name, dob, gender, doj, designation, basic_pay, dept_no)
+VALUES ('1', 'Raunak', '1990-01-15', 'M', '2015-02-01', 'Manager', 70000, 'D1'),
+('2', 'Payal', '1988-07-25', 'F', '2016-05-10', 'Developer', 45000, 'D2'),
+('3', 'Sachin', '1995-03-12', 'M', '2017-09-20', 'Analyst', 60000, 'D2'),
+('4', 'Maya', '1992-11-05', 'F', '2018-04-15', 'Designer', 50000, 'D3'),
+('5', 'Harsh', '1997-05-23', 'M', '2014-12-27', 'Debugger', 35000, 'D2'),
+('6', 'Nikhil', '1987-09-30', 'M', '2019-08-01', 'Tester', 40000, 'D2');
+
+
+INSERT INTO Skill (skill_code, description, charge_outrate)
+VALUES ('S1', 'Programming', 70),
+('S2', 'Designing', 80),
+('S3', 'Testing', 60),
+('S4', 'Debugging', 50);
+
+
+INSERT INTO Staff_Skill (staff_no, skill_code)
+VALUES (1, 'S1'),
+(1, 'S2'),
+(1, 'S3'),
+(1, 'S4'),
+(2, 'S3'),
+(3, 'S1'),
+(4, 'S2'),
+(5, 'S4'),
+(6, 'S3');
+
+
+INSERT INTO Project (project_no, project_name, start_date, end_date, project_manager_staffno)
+VALUES ('P1', 'ProjectA', '2022-01-01', '2022-06-30', 1);
+
+
+INSERT INTO Works (staff_no, project_no, date_worked_on, in_time, out_time)
+VALUES (1, 'P1', '2022-01-10', '2022-01-10 09:00:00', '2022-01-10 17:00:00'),
+(2, 'P1', '2022-01-10', '2022-01-10 10:00:00', '2022-01-10 18:00:00'),
+(3, 'P1', '2022-01-11', '2022-01-11 09:30:00', '2022-01-11 17:30:00'),
+(4, 'P1', '2022-01-11', '2022-01-11 11:00:00', '2022-01-11 19:00:00'),
+(5, 'P1', '2022-01-12', '2022-01-12 08:00:00', '2022-01-12 16:00:00');
+
+
+
+
+
+Q.A Develop a SQL query to list the department no. and number of staff in each department ?
+
+SELECT d.dept_no,COUNT(staff_no) as 'Number_of_staff' FROM department d LEFT JOIN staff s ON d.dept_no = s.dept_no GROUP BY d.dept_no;
+
+
+
+Q.B Develop a SQL query to list the details of staff who earn the AVG basic pay of all staff ?
+
+SELECT * FROM staff WHERE basic_pay = (SELECT AVG(basic_pay) FROM staff);
+
+
+
+
+Q.C Develop a SQL query to list the details of staff who have more than 3 skills ?
+
+SELECT * FROM staff WHERE staff_no IN (SELECT staff_no FROM staff_skill GROUP BY staff_no HAVING COUNT(skill_code) > 3);
+
+SELECT s.* FROM staff s LEFT JOIN staff_skill ss ON s.staff_no = ss.staff_no GROUP BY s.staff_no HAVING COUNT(ss.staff_no) > 3;
+
+
+
+
+Q.D Develop a SQL query to list the details of staff who have skills with a charge greater than 60 per hour ?
+
+SELECT * FROM staff WHERE staff_no IN (SELECT staff_no FROM staff_skill WHERE skill_code IN (SELECT skill_code FROM skill WHERE charge_outrate > 60 ));
+
+
+
+Q.E Create a view that will keep track of the department number, department name, the number of employees in the department and total basic pay expenditure for the department ?
+
+CREATE VIEW Department_Summary_View AS SELECT d.dept_no AS 'Department_No.',d.dept_name AS 'Department_Name' ,COUNT(staff_no) AS 'Number of Employees',SUM(basic_pay) AS 'Total Basic-pay Expenditure' FROM department d LEFT JOIN staff s ON d.dept_no = s.dept_no GROUP BY d.dept_no;
+
+
+
+
+Q.F Develop a SQL query to list the details of Dept. which has more than 3 staff working in it ?
+
+SELECT d.* FROM department d LEFT JOIN staff s ON d.dept_no = s.dept_no GROUP BY d.dept_no HAVING COUNT(s.staff_no) > 3;
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Question - 4 :-
+
+create database question_4;
+
+
+use question_4;
+
+
+create table customer(
+	customer_id varchar(20) primary key,
+	customer_name varchar(30)
+);
+
+create table branch(
+	branch_code varchar(20) primary key,
+	branch_name varchar(30)
+);
+
+create table account(
+	account_no int(10) primary key,
+	account_type VARCHAR(1) check (account_type in ('S','C')),
+	balance DECIMAL(10,2),
+	customer_id varchar(20),
+	branch_code varchar(20),
+	foreign key (customer_id) references customer(customer_id),
+	foreign key (branch_code) references branch(branch_code)
+);
+
+
+create table transaction(
+	transaction_id varchar(20),
+	account_no INT(10),
+	trans_type VARCHAR(1) check (trans_type in ('D','W')),
+	trans_date date,
+	trans_amount DECIMAL(10,2),
+	primary key(transaction_id,account_no),
+	foreign key(account_no) references account(account_no)
+);
+
+
+INSERT INTO Customer (customer_id, customer_name) VALUES
+('C1', 'John Doe'),
+('C2', 'Jane Smith'),
+('C3', 'Robert Johnson'),
+('C4', 'Emma White'),
+('C5', 'Michael Brown'),
+('C6', 'Amanda Green'),
+('C7', 'David Miller'),
+('C8', 'Olivia Davis'),
+('C9', 'William Jones'),
+('C10', 'Sophia Wilson');
+
+
+INSERT INTO Branch (branch_code, branch_name) VALUES
+('B1', 'BranchA'),
+('B2', 'BranchB'),
+('B3', 'BranchC'),
+('B4', 'BranchD'),
+('B5', 'BranchE'),
+('B6', 'BranchF'),
+('B7', 'BranchG'),
+('B8', 'BranchH'),
+('B9', 'BranchI'),
+('B10', 'BranchJ');
+
+
+INSERT INTO Account (account_no, account_type, Balance, customer_id, branch_code) VALUES
+('001', 'S', 5000, 'C1', 'B1'),
+('002', 'C', 10000, 'C2', 'B2'),
+('003', 'S', 7500, 'C3', 'B3'),
+('004', 'C', 12000, 'C4', 'B4'),
+('005', 'S', 3000, 'C5', 'B5'),
+('006', 'C', 8000, 'C6', 'B6'),
+('007', 'S', 9500, 'C7', 'B7'),
+('008', 'C', 6000, 'C8', 'B8'),
+('009', 'S', 4200, 'C9', 'B9'),
+('010', 'C', 11000, 'C10', 'B10'),
+('111', 'C', 6000, 'C1', 'B1'),
+('112', 'S', 8000, 'C2', 'B2'),
+('113', 'C', 3500, 'C5', 'B5');
+
+
+INSERT INTO Transaction (transaction_id, account_no, trans_type, trans_date, trans_amount) VALUES
+('T1', '001', 'D', '2022-01-10', 1000),
+('T2', '002', 'W', '2022-01-12', 500),
+('T3', '003', 'D', '2022-01-15', 1500),
+('T4', '004', 'W', '2022-01-20', 2000),
+('T5', '005', 'D', '2022-01-25', 800),
+('T6', '006', 'W', '2022-02-01', 1000),
+('T7', '007', 'D', '2022-02-05', 1200),
+('T8', '008', 'W', '2022-02-10', 700),
+('T9', '009', 'D', '2022-02-15', 900),
+('T10', '010', 'W', '2022-02-20', 1500),
+('T11', '001', 'D', '2022-01-10', 1500),
+('T12', '001', 'W', '2022-01-10', 500);
+
+
+
+
+
+Q.A Develop a SQL query to list the details of customers who have a saving account and a current account ?
+
+SELECT * FROM customer WHERE customer_id IN (SELECT customer_id FROM account WHERE account_type = 'S' INTERSECT SELECT customer_id FROM account WHERE account_type = 'C');
+
+
+
+
+
+
+Q.B Develop a SQL query to list the details of branches and the number of accounts in each branch ?
+
+SELECT b.branch_code,b.branch_name,COUNT(account_no) as 'Number of Accounts' FROM branch b LEFT JOIN account a ON b.branch_code = a.branch_code GROUP BY b.branch_code;
+ 
+
+
+
+
+Q.C Develop a SQL query to list the details of branches where the number of accounts is less than the average number of accounts in all branches ?
+
+
+select branch_name from branch where branch_code in (select branch_code from account group by branch_code having count(account_no) < count(branch_code))..........????????
+
+
+
+Q.D Develop a SQL query to list the details of customers who have performed three transaction on a day ?
+
+SELECT c.customer_id,c.customer_name FROM customer c LEFT JOIN account a ON c.customer_id = a.customer_id WHERE account_no IN (SELECT account_no FROM transaction GROUP BY trans_date HAVING COUNT(transaction_id) = 3);
+
+
+
+
+
+
+Q.E Create a view that will keep track of branch details and the number of accounts in each branch ?
+
+
+CREATE VIEW Branch_details AS SELECT b.branch_code,b.branch_name,COUNT(account_no) as 'Number of Accounts' FROM branch b LEFT JOIN account a ON b.branch_code = a.branch_code GROUP BY b.branch_code;
+
+
+
+
+
